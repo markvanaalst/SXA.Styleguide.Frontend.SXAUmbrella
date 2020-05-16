@@ -13,25 +13,25 @@ gulp.task('fix-defaulttheme-sass-for-webpack', function (done) {
     const destinationThemeSass = path.resolve('./sass/');
     gulp
       .src(path.join(srcThemeSass, '*.scss'))
-        .pipe(bulkSass())
-        // make @import path relative to sass folder
+      .pipe(bulkSass())
+      // make @import path relative to sass folder
       .pipe(gulpReplace(srcThemeSass, '.'))
       .pipe(gulp.dest(destinationThemeSass));
-
+  
     // fix "base/.. includes on deeper levels"
     gulp
       .src(path.join(srcThemeSass, '*/*.scss'))
-        .pipe(gulpReplace('"base/', '"../base/'))
+      .pipe(gulpReplace('"base/', '"../base/'))
       .pipe(gulpReplace('"abstracts/', '"../abstracts/'))
       .pipe(gulp.dest(destinationThemeSass));
-
+    
     gulp
       .src(path.join(srcThemeSass, '*/*/*.scss'))
-        .pipe(gulpReplace('"base/', '"../../base/'))
+      .pipe(gulpReplace('"base/', '"../../base/'))
       .pipe(gulpReplace('"abstracts/', '"../../abstracts/'))
       .pipe(gulp.dest(destinationThemeSass));
-
-    done();
+      
+    done();    
 });
 
 gulp.task('sprite-flag', function(done) {
